@@ -1,5 +1,5 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+import { writeFile } from 'node:fs/promises';
+import path from 'node:path';
 import { destinationFolderPath } from '../utils/workWithFiles.js';
 
 const file = {
@@ -9,11 +9,11 @@ const file = {
 };
 
 const create = async () => {
-    const folderPath = destinationFolderPath(import.meta.url);
-    const filePath = path.join(folderPath, file.name);
+    const destinationFolder = destinationFolderPath(import.meta.url);
+    const filePath = path.join(destinationFolder, file.name);
 
     try {
-        await fs.writeFile(filePath, file.content, { flag: 'wx' });
+        await writeFile(filePath, file.content, { flag: 'wx' });
     } catch {
         throw new Error(file.errorMessage);
     }
