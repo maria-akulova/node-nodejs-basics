@@ -1,11 +1,10 @@
 import { writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { destinationFolder } from '../utils/workWithFiles.js';
+import { destinationFolder, errorMessage } from '../utils/workWithFiles.js';
 
 const file = {
     name: 'fresh.txt',
-    content: 'I am fresh and young',
-    errorMessage: 'FS operation failed'
+    content: 'I am fresh and young'
 };
 
 const create = async () => {
@@ -15,7 +14,7 @@ const create = async () => {
     try {
         await writeFile(filePath, file.content, { flag: 'wx' });
     } catch {
-        throw new Error(file.errorMessage);
+        throw new Error(errorMessage);
     }
 };
 
