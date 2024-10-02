@@ -1,6 +1,6 @@
 import { writeFile } from 'node:fs/promises';
-import path from 'node:path';
-import { destinationFolderPath } from '../utils/workWithFiles.js';
+import { dirname, join } from 'node:path';
+import { destinationFolder } from '../utils/workWithFiles.js';
 
 const file = {
     name: 'fresh.txt',
@@ -9,8 +9,8 @@ const file = {
 };
 
 const create = async () => {
-    const destinationFolder = destinationFolderPath(import.meta.url);
-    const filePath = path.join(destinationFolder, file.name);
+    const currDir = dirname(process.argv[1]);
+    const filePath = join(currDir, destinationFolder, file.name);
 
     try {
         await writeFile(filePath, file.content, { flag: 'wx' });
