@@ -1,5 +1,29 @@
+import { createReadStream } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { stdout } from 'node:process';
+import { finished } from 'node:stream/promises';
+
+import { join, dirname } from 'node:path';
+import { destinationFolder, errorMessage } from '../utils/workWithFiles.js';
+
+async function run(input) {
+    await finished(input);
+}
+
 const calculateHash = async () => {
-    // Write your code here 
+    const fileToHash = 'fileToCalculateHashFor.txt';
+    const currDir = dirname(process.argv[1]);
+    const src = join(currDir, destinationFolder, fileToHash);
+    try {
+        const hash = createHash('sha256');
+        const input = createReadStream(src);
+        input.pipe(hash).setEncoding('hex').pipe(stdout);
+
+        run(input).catch(console.error);
+        input.resume();
+    } catch {
+        throw new Error(errorMessage);
+    }
 };
 
 await calculateHash();
