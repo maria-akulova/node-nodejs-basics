@@ -12,11 +12,9 @@ const calculateHash = async () => {
     try {
         await pipeline(
             input,
-            hash,
-            async function (src) {
-                src.setEncoding('hex');
-                return src.pipe(stdout);
-            }
+            hash.setEncoding('hex'),
+            stdout,
+            { end: false }
         );
         console.log('\n');
     } catch (err) {
