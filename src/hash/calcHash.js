@@ -6,20 +6,16 @@ import { finished } from 'node:stream/promises';
 import { join, dirname } from 'node:path';
 import { destinationFolder, errorMessage } from '../utils/workWithFiles.js';
 
-async function run(input) {
-    await finished(input);
-}
-
 const calculateHash = async () => {
     const fileToHash = 'fileToCalculateHashFor.txt';
-    const currDir = dirname(process.argv[1]);
-    const src = join(currDir, destinationFolder, fileToHash);
     try {
+        const currDir = dirname(process.argv[1]);
+        const src = join(currDir, destinationFolder, fileToHash);
         const hash = createHash('sha256');
         const input = createReadStream(src);
         input.pipe(hash).setEncoding('hex').pipe(stdout);
 
-        run(input).catch(console.error);
+        await finished(input).catch(console.error);
         input.resume();
     } catch {
         throw new Error(errorMessage);
