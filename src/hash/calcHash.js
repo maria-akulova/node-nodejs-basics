@@ -16,7 +16,7 @@ const calculateHash = async () => {
             stdout,
             { end: false }
         );
-        console.log('\n');
+        stdout.write('\n');
     } catch (err) {
         console.error('Error during hash calculation:', err);
     }

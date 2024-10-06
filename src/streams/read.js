@@ -11,7 +11,7 @@ const read = async () => {
             stdout,
             { end: false }
         );
-        console.log('\n');
+        stdout.write('\n');
     } catch (err) {
         console.error('Pipeline failed:', err);
     }
