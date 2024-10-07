@@ -1,5 +1,5 @@
 import { Worker } from 'node:worker_threads';
-import { cpus } from 'node:os';
+import { availableParallelism } from 'node:os';
 import { dirname, join } from 'node:path';
 import { destinationFile } from '../utils/workWithFiles.js';
 
@@ -20,7 +20,7 @@ const initWorker = (initCounter) => new Promise((resolve) => {
 })
 
 const performCalculations = async () => {
-    const sizeOfPool = cpus().length;
+    const sizeOfPool = availableParallelism();
     const workerPool = Array.from({ length: sizeOfPool }, (_, i) => initWorker(counter + i));
     const result = await Promise.all(workerPool);
     console.log(result);
