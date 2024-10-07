@@ -1,7 +1,7 @@
 import { createReadStream } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { stdout } from 'node:process';
-import { pipeline } from 'node:stream/promises';
+import { pipeline, finished } from 'node:stream/promises';
 import { destinationFile } from '../utils/workWithFiles.js';
 
 const calculateHash = async () => {
@@ -16,7 +16,7 @@ const calculateHash = async () => {
             stdout,
             { end: false }
         );
-        stdout.write('\n');
+        stdout.end('\n');
     } catch (err) {
         console.error('Error during hash calculation:', err);
     }
