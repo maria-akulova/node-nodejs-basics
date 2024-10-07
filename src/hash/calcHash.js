@@ -1,7 +1,7 @@
 import { createReadStream } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { stdout } from 'node:process';
-import { pipeline, finished } from 'node:stream/promises';
+import { pipeline } from 'node:stream/promises';
 import { destinationFile } from '../utils/workWithFiles.js';
 
 const calculateHash = async () => {
