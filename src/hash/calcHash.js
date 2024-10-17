@@ -1,4 +1,6 @@
 import { createReadStream } from 'node:fs';
+//import { readFile } from 'node:fs/promises';
+
 import { createHash } from 'node:crypto';
 import { stdout } from 'node:process';
 import { pipeline } from 'node:stream/promises';
@@ -10,6 +12,10 @@ const calculateHash = async () => {
     const input = createReadStream(src);
 
     try {
+        // const inputSync = await readFile(src);
+        // const hashAlternative = createHash("sha256").update(inputSync).digest("hex");
+        // console.log(hashAlternative);
+
         await pipeline(
             input,
             hash.setEncoding('hex'),

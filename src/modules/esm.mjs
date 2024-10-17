@@ -2,11 +2,8 @@ import { sep } from 'node:path';
 import { release, version } from 'node:os';
 import { createServer as createServerHttp } from 'node:http';
 import './files/c.js';
-import { fileURLToPath } from 'node:url';
-import { currDir } from '../utils/workWithFiles.js';
 
 const random = Math.random();
-
 let unknownObject;
 
 if (random > 0.5) {
@@ -19,8 +16,8 @@ console.log(`Release ${release()}`);
 console.log(`Version ${version()}`);
 console.log(`Path segment separator is "${sep}"`);
 
-console.log(`Path to current file is ${fileURLToPath(import.meta.url)}`);
-console.log(`Path to current directory is ${currDir(import.meta.url)}`);
+console.log(`Path to current file is ${import.meta.filename}`);
+console.log(`Path to current directory is ${import.meta.dirname}`);
 
 const myServer = createServerHttp((_, res) => {
     res.end('Request accepted');
